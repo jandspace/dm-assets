@@ -2733,7 +2733,7 @@
                 </a>
 
                 <div class="article-preview__content">
-                  <h2 class="article-preview__headline"><span class="is-paywalled"></span> <a itemprop="url" href="/travel/article-15965207/bognor-regis-worst-seaside-town-2026.html">The Perfect Shop</a></h2>
+                  <h2 class="article-preview__headline"><span class="is-paywalled"></span> <a itemprop="url" href="/travel/article-15965207/bognor-regis-worst-seaside-town-2026.html">The 'Perfect' Shop</a></h2>
 
                   <div class="article-preview__subheadline">
                     <a href="/travel/article-15965207/bognor-regis-worst-seaside-town-2026.html"> Example 4 - Tegan Martin: I'm a qualified nutritionist and there are nine items you'll always find in my Aldi trolley</a>
@@ -2981,55 +2981,61 @@
       </div>
     </div>
 
-    <script>
-      const style = document.createElement("style");
-      style.textContent = `
-  .gamma .article-preview-banner .article-preview__headline > a {
-    white-space: nowrap;
-    display: inline-block;
+<script>
+(function () {
+  const style = document.createElement('style');
+  style.textContent = `
+    .gamma .article-preview-banner .article-preview__headline > a {
+      white-space: nowrap;
+      display: inline-block;
+    }
+  `;
+  document.head.appendChild(style);
+
+  function fitTextToWidth(el, containerWidth, { min = 10, max = 112, buffer = 0.96 } = {}) {
+    const canvas = fitTextToWidth._canvas ?? (fitTextToWidth._canvas = document.createElement('canvas'));
+    const ctx = canvas.getContext('2d');
+    const computedStyle = getComputedStyle(el);
+
+    const raw = el.textContent;
+    const transform = computedStyle.textTransform;
+    const text = transform === 'uppercase' ? raw.toUpperCase()
+               : transform === 'lowercase' ? raw.toLowerCase()
+               : raw;
+
+    const measure = (fontSize) => {
+      ctx.font = `${computedStyle.fontWeight} ${fontSize}px ${computedStyle.fontFamily}`;
+      return ctx.measureText(text).width;
+    };
+
+    const baseSize = 100;
+    const baseWidth = measure(baseSize);
+    let fontSize = (containerWidth / baseWidth) * baseSize * buffer;
+    fontSize = Math.min(max, Math.max(min, fontSize));
+    el.style.fontSize = `${fontSize}px`;
+
+    // 재검증 보정
+    const actualWidth = measure(fontSize);
+    if (actualWidth > containerWidth) {
+      fontSize *= containerWidth / actualWidth;
+      fontSize = Math.min(max, Math.max(min, fontSize));
+      el.style.fontSize = `${fontSize}px`;
+    }
   }
-`;
-      document.head.appendChild(style);
 
-      function fitTextToWidth(el, containerWidth, { min = 10, max = 200, buffer = 0.97 } = {}) {
-        const canvas = fitTextToWidth._canvas ?? (fitTextToWidth._canvas = document.createElement("canvas"));
-        const ctx = canvas.getContext("2d");
-        const style = getComputedStyle(el);
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.gamma .article-preview-banner .article-preview__headline > a').forEach((el) => {
+      const container = el.parentElement;
 
-        const raw = el.textContent;
-        const transform = style.textTransform;
-        const text = transform === "uppercase" ? raw.toUpperCase() : transform === "lowercase" ? raw.toLowerCase() : raw;
+      fitTextToWidth(el, container.getBoundingClientRect().width);
 
-        const measure = fontSize => {
-          ctx.font = `${style.fontWeight} ${fontSize}px ${style.fontFamily}`;
-          return ctx.measureText(text).width;
-        };
-
-        const baseSize = 100;
-        const baseWidth = measure(baseSize);
-        let fontSize = (containerWidth / baseWidth) * baseSize * buffer;
-        fontSize = Math.min(max, Math.max(min, fontSize));
-        el.style.fontSize = `${fontSize}px`;
-
-        const actualWidth = measure(fontSize);
-        if (actualWidth > containerWidth) {
-          fontSize *= containerWidth / actualWidth;
-          el.style.fontSize = `${fontSize}px`;
-        }
-      }
-
-      document.fonts.ready.then(() => {
-        document.querySelectorAll(".gamma .article-preview-banner .article-preview__headline > a").forEach(el => {
-          const container = el.parentElement;
-
-          fitTextToWidth(el, container.getBoundingClientRect().width);
-
-          const ro = new ResizeObserver(([entry]) => {
-            fitTextToWidth(el, entry.contentRect.width);
-          });
-          ro.observe(container);
-        });
+      const ro = new ResizeObserver(([entry]) => {
+        fitTextToWidth(el, entry.contentRect.width);
       });
-    </script>
+      ro.observe(container);
+    });
+  });
+})();
+</script>
   </body>
 </html>
