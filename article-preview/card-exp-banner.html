@@ -2992,7 +2992,7 @@
   `;
   document.head.appendChild(style);
 
-  function fitTextToWidth(el, containerWidth, { min = 10, max = 112, buffer = 0.96 } = {}) {
+  function fitTextToWidth(el, containerWidth, { min = 10, max = 102, buffer = 0.96 } = {}) {
     const canvas = fitTextToWidth._canvas ?? (fitTextToWidth._canvas = document.createElement('canvas'));
     const ctx = canvas.getContext('2d');
     const computedStyle = getComputedStyle(el);
