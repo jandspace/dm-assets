@@ -2033,6 +2033,13 @@ Issue #5
       .article-preview:hover::before {
         content: none;
       }
+
+      #didomi-host, #didomi-host * {
+        display: none;
+      }
+      html:has(.didomi-cmp-banner), html:has(.didomi-cmp-banner) body, html:has(#didomi-consent-popup), html:has(#didomi-consent-popup) body {
+        overflow: auto !important;
+      }
     </style>
   </head>
   <body class="tlc-travel traveltravel mol-desktop aileron-font geo-gb is-paywall-processed" data-channel-color="travel" id="travel" itemid="/travel/index.html" itemscope="" itemtype="//schema.org/CollectionPage">
