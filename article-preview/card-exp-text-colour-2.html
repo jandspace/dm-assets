@@ -4159,103 +4159,151 @@
     />
 
 
+
     <!-- Style Tweaks -->
-
     <style>
-      /* 1.
-          Fallback: Remove left & right padding to make the card wider */
-      .article-preview {
-        padding: 16px 0;
-      }
-      .article-preview::before {
-        inset: 8px -8px;
-      }
-      .article-preview::after {
-        left: 0;
-        right: 0;
-      }
+          /*
+      Issue #1
+    */
+          .article-preview {
+            padding: 16px 0;
+          }
+          .article-preview::before {
+            inset: 8px -8px;
+          }
+          .article-preview::after {
+            left: 0;
+            right: 0;
+          }
+          .column-splitter .column-split.first-column {
+            margin-right: 32px;
+          }
+          .column-splitter .column-split {
+            width: calc(50% - 16px); /* Equivalent 302px width each */
+          }
 
-      /* 2.
-          Banner Card Hovering effect */
-      .article-preview.article-preview-banner:hover .article-preview__headline a {
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-underline-offset: 4px;
-      }
+          /*
+      Issue #2
+    */
+          .article-preview.article-preview-banner:hover .article-preview__headline a {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+          }
+          .article-preview-banner:hover .article-preview__media img {
+            transform: scale(1);
+          }
 
-      /* Remove the card keyline from the last child */
-      .alpha > .column-splitter > .column-split > .article-preview:last-of-type::after {
-        content: none;
-      }
+          /*
+      Issue #3
+    */
+          .gamma .article-preview-banner .article-preview__headline {
+            font-size: 72px;
+          }
+          .article-preview-banner .article-preview__headline {
+            font-size: 48px;
+          }
 
-      /* 3.
-          Banner Font Adjustment */
-      .gamma .article-preview-banner .article-preview__headline {
-        font-size: 72px;
-      }
-      .article-preview-banner .article-preview__headline {
-        font-size: 48px;
-      }
+          /*
+      Issue #4
+    */
+          div.article-icon-links-container ul.article-icon-links li.article-icon-links__pubInfo {
+            overflow: visible;
+          }
+          div.article-icon-links-container ul.article-icon-links li a {
+            position: relative;
+          }
+          div.article-icon-links-container ul.article-icon-links li a .linktext .readerCommentNo {
+            line-height: 16px;
+          }
+          div.article-icon-links-container ul.article-icon-links li a:before {
+            content: "";
+            display: inline-block;
+            background: var(--color-effect-translucent-dark-deep);
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            left: 0;
+            bottom: -2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s ease;
+          }
+          .article-preview-banner div.article-icon-links-container ul.article-icon-links li a:before {
+            background: var(--color-effect-translucent-light-moderate);
+          }
+          div.article-icon-links-container ul.article-icon-links li a:hover:before {
+            transform: scaleX(1);
+          }
 
-      /* 4.
-          Adjust Single width */
-      .column-splitter .column-split.first-column {
-        margin-right: 32px;
-      }
-      .column-splitter .column-split {
-        width: calc(50% - 16px); /* Equivalent 302px width each */
-      }
+          .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="News"] a:hover {
+            color: var(--color-text-news-cyan-base);
+          }
+          .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="Showbiz"] a:hover {
+            color: var(--color-text-showbiz-red-base);
+          }
+          .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="Travel"] a:hover {
+            color: var(--color-text-travel-navy-base);
+          }
 
-      /* Hover Style on Channel and Comment */
-      div.article-icon-links-container ul.article-icon-links li.article-icon-links__pubInfo {
-        overflow: visible;
-      }
-      div.article-icon-links-container ul.article-icon-links li a {
-        position: relative;
-        min-height: 16px;
-      }
-      div.article-icon-links-container ul.article-icon-links li a:before {
-        content: "";
-        display: inline-block;
-        background: var(--color-effect-translucent-dark-deep);
-        position: absolute;
-        width: 100%;
-        height: 1px;
-        left: 0;
-        bottom: -2px;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform .3s ease;
-      }
-        .article-preview-banner div.article-icon-links-container ul.article-icon-links li a:before {
-          background: var(--color-effect-translucent-light-moderate);
-        }
-      div.article-icon-links-container ul.article-icon-links li a:hover:before {
-        transform: scaleX(1);
-      }
+          .article-preview-default .article-preview__links .comments-link:hover .linktext .readerCommentNo {
+            color: #004db3;
+          }
+          .article-preview-default .article-preview__links .comments-link:hover img {
+            filter: brightness(0) saturate(100%) invert(17%) sepia(69%) saturate(3745%) hue-rotate(207deg) brightness(95%) contrast(101%);
+          }
 
-      .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="News"] a:hover {
-        color: var(--color-text-news-cyan-base);
-      }
-      .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="Showbiz"] a:hover {
-        color: var(--color-text-showbiz-red-base);
-      }
-      .article-preview-default div.article-icon-links-container ul.article-icon-links li[data-channel="Travel"] a:hover {
-        color: var(--color-text-travel-navy-base);
-      }
-      
-      .article-preview-default .article-preview__links .comments-link:hover .linktext .readerCommentNo {
-        color: #004db3;
-      }
-      .article-preview-default .article-preview__links .comments-link:hover img {
-        filter: brightness(0) saturate(100%) invert(17%) sepia(69%) saturate(3745%) hue-rotate(207deg) brightness(95%) contrast(101%);
-      }
+          /*
+    Issue #5
+    */
+          .article-preview-default.double-small {
+            display: grid;
+            grid-template-columns: 1fr 383px;
+            column-gap: 16px;
+            row-gap: 8px;
+          }
+          .article-preview-default.double-small .article-preview__media {
+            grid-column: 2;
+            grid-row: 1 / 4;
+            width: 383px;
+            aspect-ratio: 5 / 3;
+            height: auto;
+            align-self: flex-start;
+            margin-bottom: 0;
+          }
+          .article-preview-default.double-small h2.article-preview__headline {
+            grid-column: 1;
+            font-size: 22px;
+          }
+          .article-preview-default.double-small .article-preview__description {
+            grid-column: 1;
+            font-size: 13px;
+          }
+          .article-preview-default.double-small .article-preview__links {
+            grid-column: 1;
+            align-self: end;
+          }
 
+          /*
+      Issue #7
+    */
+          .alpha > .column-splitter > .column-split > .article-preview:last-of-type::after {
+            content: none;
+          }
+    </style>
+    <style>
       .article-preview__headline a {
         color: var(--color-text-link-default);
       }
-      .article-preview:hover:not(.article-preview-banner) .article-preview__headline a {
-        color: #c00;
+      .article-preview:hover .article-preview__headline a {
+        color: var(--color-text-link-default);
+      }
+      .article-preview:not(.article-preview-banner) .article-preview__headline a:hover {
+        color: #c00; /* As is now 2026.09.02 */
+      }
+
+      .article-preview:hover::before {
+        content: none;
       }
     </style>
 
