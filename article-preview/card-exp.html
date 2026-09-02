@@ -2022,6 +2022,14 @@ Issue #5
       .alpha > .column-splitter > .column-split > .article-preview:last-of-type::after {
         content: none;
       }
+
+      /* NO CMP for Test */
+      #didomi-host, #didomi-host * {
+        display: none;
+      }
+      html:has(.didomi-cmp-banner), html:has(.didomi-cmp-banner) body, html:has(#didomi-consent-popup), html:has(#didomi-consent-popup) body {
+        overflow: auto !important;
+      }
     </style>
   </head>
   <body class="tlc-travel traveltravel mol-desktop aileron-font geo-gb is-paywall-processed" data-channel-color="travel" id="travel" itemid="/travel/index.html" itemscope="" itemtype="//schema.org/CollectionPage">
@@ -3454,17 +3462,10 @@ Issue #5
 .article-preview-small.small-reverse {
   grid-template-columns: 1fr 120px;
 }
-
 .article-preview-small.small-reverse .article-preview__media {
   grid-column: 2;
   
 }
-  /* To dismiss Puff Image style */
-  .puff .article-preview-small.small-reverse a {
-    min-height: fit-content; 
-    margin: 0 !important;
-  }
-
 .article-preview-small.small-reverse > *:not(.article-preview__media) {
   grid-column: 1;
 }
